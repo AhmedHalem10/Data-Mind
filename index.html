@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Full Screen Responsive Dashboard - Ahmed Halem</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="dashboard-container">
+    
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="sidebar">
+      <div class="user-profile">
+        <div class="avatar">
+          <img src="image1.png" alt="Ahmed Halem Avatar" onerror="this.src='https://i.pravatar.cc/100?img=33'">
+        </div>
+        <h3>Ahmed Halem</h3>
+        <p>ahmedhalem@gmail.com</p>
+      </div>
+
+      <nav class="menu">
+        <a href="#" class="menu-item active" data-tab="dashboard"><i class="fa-solid fa-border-all"></i> Dashboard</a>
+        <a href="#" class="menu-item" data-tab="achievements"><i class="fa-solid fa-trophy"></i> Achievements</a>
+        <a href="#" class="menu-item" data-tab="shortages"><i class="fa-solid fa-triangle-exclamation"></i> Shortages <span class="badge" id="shortage-count-badge">0</span></a>
+        <a href="#" class="menu-item" data-tab="sales"><i class="fa-solid fa-chart-line"></i> Sales</a>
+      </nav>
+
+      <div class="glowing-btn-container">
+        <button class="glowing-btn" id="open-input-modal">
+          <span class="btn-text"><i class="fa-solid fa-pen-to-square"></i> Data Input</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-content-wrapper">
+      
+      <!-- 1. DASHBOARD TAB -->
+      <main class="main-content tab-content active" id="tab-dashboard">
+        <section class="cards-grid">
+          <div class="card card-dark-blue">
+            <div class="card-info">
+              <span>CPU</span>
+              <h2><span class="counter" id="card-cpu-price" data-target="0">0</span> EGP</h2>
+              <small class="updated-time">Updated 0m Ago</small>
+            </div>
+            <div class="card-icon"><i class="fa-solid fa-microchip"></i></div>
+          </div>
+
+          <div class="card card-orange">
+            <div class="card-info">
+              <span>RAM</span>
+              <h2><span class="counter" id="card-ram-price" data-target="0">0</span> EGP</h2>
+              <small class="updated-time">Updated 0m Ago</small>
+            </div>
+            <div class="card-icon"><i class="fa-solid fa-memory"></i></div>
+          </div>
+
+          <div class="card card-teal">
+            <div class="card-info">
+              <span>Motherboard</span>
+              <h2><span class="counter" id="card-mb-price" data-target="0">0</span> EGP</h2>
+              <small class="updated-time">Updated 0m Ago</small>
+            </div>
+            <div class="card-icon"><i class="fa-solid fa-chess-board"></i></div>
+          </div>
+
+          <div class="card card-black">
+            <div class="card-info">
+              <span>GPU</span>
+              <h2><span class="counter" id="card-gpu-price" data-target="0">0</span> EGP</h2>
+              <small class="updated-time">Updated 0m Ago</small>
+            </div>
+            <div class="card-icon"><i class="fa-solid fa-display"></i></div>
+          </div>
+        </section>
+
+        <section class="middle-grid">
+          <div class="panel observations-panel">
+            <div class="panel-header">
+              <h3>Observations</h3>
+            </div>
+            <div class="obs-grid">
+              <div class="obs-card">
+                <div class="obs-card-header">
+                  <span class="obs-title"><i class="fa-solid fa-keyboard"></i> Keyboard</span>
+                  <span class="obs-percent" id="obs-keyboard-percent">0%</span>
+                </div>
+                <div class="bar"><div class="fill" id="obs-keyboard-bar" data-progress="0%"></div></div>
+              </div>
+
+              <div class="obs-card">
+                <div class="obs-card-header">
+                  <span class="obs-title"><i class="fa-solid fa-computer-mouse"></i> Mouse</span>
+                  <span class="obs-percent" id="obs-mouse-percent">0%</span>
+                </div>
+                <div class="bar"><div class="fill" id="obs-mouse-bar" data-progress="0%"></div></div>
+              </div>
+
+              <div class="obs-card">
+                <div class="obs-card-header">
+                  <span class="obs-title"><i class="fa-solid fa-headphones"></i> Headphones</span>
+                  <span class="obs-percent" id="obs-headphones-percent">0%</span>
+                </div>
+                <div class="bar"><div class="fill" id="obs-headphones-bar" data-progress="0%"></div></div>
+              </div>
+
+              <div class="obs-card">
+                <div class="obs-card-header">
+                  <span class="obs-title"><i class="fa-solid fa-print"></i> Printers</span>
+                  <span class="obs-percent" id="obs-printers-percent">0%</span>
+                </div>
+                <div class="bar"><div class="fill" id="obs-printers-bar" data-progress="0%"></div></div>
+              </div>
+
+              <div class="obs-card">
+                <div class="obs-card-header">
+                  <span class="obs-title"><i class="fa-solid fa-desktop"></i> Monitors</span>
+                  <span class="obs-percent" id="obs-monitors-percent">0%</span>
+                </div>
+                <div class="bar"><div class="fill" id="obs-monitors-bar" data-progress="0%"></div></div>
+              </div>
+
+              <div class="obs-card">
+                <div class="obs-card-header">
+                  <span class="obs-title"><i class="fa-solid fa-tower-cell"></i> PC Builds</span>
+                  <span class="obs-percent" id="obs-pcbuilds-percent">0%</span>
+                </div>
+                <div class="bar"><div class="fill" id="obs-pcbuilds-bar" data-progress="0%"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel category-progress">
+            <div class="panel-header">
+              <h3>Categories</h3>
+            </div>
+            <div class="progress-list">
+              <div class="progress-item">
+                <div class="icon-box dark-bg"><i class="fa-solid fa-microchip"></i></div>
+                <div class="bar-container">
+                  <span class="label">CPU</span>
+                  <div class="bar"><div class="fill" id="cat-cpu-bar" data-progress="0%"></div></div>
+                </div>
+                <span class="percent" id="cat-cpu-percent">0%</span>
+              </div>
+
+              <div class="progress-item">
+                <div class="icon-box orange-bg"><i class="fa-solid fa-display"></i></div>
+                <div class="bar-container">
+                  <span class="label">GPU</span>
+                  <div class="bar"><div class="fill" id="cat-gpu-bar" data-progress="0%"></div></div>
+                </div>
+                <span class="percent" id="cat-gpu-percent">0%</span>
+              </div>
+
+              <div class="progress-item">
+                <div class="icon-box green-bg"><i class="fa-solid fa-memory"></i></div>
+                <div class="bar-container">
+                  <span class="label">RAM</span>
+                  <div class="bar"><div class="fill" id="cat-ram-bar" data-progress="0%"></div></div>
+                </div>
+                <span class="percent" id="cat-ram-percent">0%</span>
+              </div>
+
+              <div class="progress-item">
+                <div class="icon-box blue-bg"><i class="fa-solid fa-network-wired"></i></div>
+                <div class="bar-container">
+                  <span class="label">Northbridge</span>
+                  <div class="bar"><div class="fill" id="cat-nb-bar" data-progress="0%"></div></div>
+                </div>
+                <span class="percent" id="cat-nb-percent">0%</span>
+              </div>
+
+              <div class="progress-item">
+                <div class="icon-box purple-bg"><i class="fa-solid fa-diagram-project"></i></div>
+                <div class="bar-container">
+                  <span class="label">Southbridge</span>
+                  <div class="bar"><div class="fill" id="cat-sb-bar" data-progress="0%"></div></div>
+                </div>
+                <span class="percent" id="cat-sb-percent">0%</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="bottom-grid">
+          <div class="panel graph-panel">
+            <div class="panel-header">
+              <h3>Stocks Graph</h3>
+              <div class="chart-filter">
+                <button class="filter-btn active" data-filter="year">2026</button>
+                <button class="filter-btn" data-filter="month">Month</button>
+              </div>
+            </div>
+            <div class="chart-wrapper">
+              <canvas id="stocksChart"></canvas>
+            </div>
+          </div>
+
+          <div class="panel social-panel">
+            <a href="https://www.linkedin.com/in/ahmed-halem-45348b25b" target="_blank" class="social-item">
+              <i class="fa-brands fa-linkedin text-linkedin"></i> 
+              <span>LinkedIn</span>
+            </a>
+            <a href="https://www.facebook.com/ahmed.nasser.571914" target="_blank" class="social-item">
+              <i class="fa-brands fa-facebook text-facebook"></i> 
+              <span>Facebook</span>
+            </a>
+            <a href="https://www.threads.com/@ahmedhalem94" target="_blank" class="social-item">
+              <i class="fa-brands fa-threads text-threads"></i> 
+              <span>Threads</span>
+            </a>
+            <a href="https://www.instagram.com/ahmedhalem94?igsh=MTJ6d3duYXQxeWlzeA==" target="_blank" class="social-item">
+              <i class="fa-brands fa-instagram text-instagram"></i> 
+              <span>Instagram</span>
+            </a>
+          </div>
+        </section>
+      </main>
+
+      <!-- 2. ACHIEVEMENTS TAB -->
+      <main class="main-content tab-content" id="tab-achievements">
+        <div class="achievements-header">
+          <h2><i class="fa-solid fa-trophy text-orange"></i> Hardware Achievements & Gallery</h2>
+          <p>Manage and view all hardware components with custom actions and saved prices</p>
+        </div>
+
+        <div class="components-grid">
+          <div class="component-card" data-comp-id="cpu">
+            <div class="comp-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1591799264318-7e6ef8ddb7ea?w=500&auto=format&fit=crop&q=80" alt="CPU Processor">
+              <span class="comp-badge">Category</span>
+            </div>
+            <div class="comp-details">
+              <h3>CPU Processor</h3>
+              <p>Central Processing Units inventory & specs</p>
+              <div class="comp-price-tag">Price: <span class="price-val" id="price-cpu">0</span> EGP</div>
+              <button class="add-comp-btn" data-id="cpu" data-name="CPU Processor"><i class="fa-solid fa-pen-to-square"></i> Set Price / Add</button>
+            </div>
+          </div>
+
+          <div class="component-card" data-comp-id="gpu">
+            <div class="comp-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=500&auto=format&fit=crop&q=80" alt="Graphics Card">
+              <span class="comp-badge">Category</span>
+            </div>
+            <div class="comp-details">
+              <h3>GPU (Graphics Card)</h3>
+              <p>High performance graphic processing units</p>
+              <div class="comp-price-tag">Price: <span class="price-val" id="price-gpu">0</span> EGP</div>
+              <button class="add-comp-btn" data-id="gpu" data-name="GPU (Graphics Card)"><i class="fa-solid fa-pen-to-square"></i> Set Price / Add</button>
+            </div>
+          </div>
+
+          <div class="component-card" data-comp-id="ram">
+            <div class="comp-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1562976540-1502c2145186?w=500&auto=format&fit=crop&q=80" alt="RAM Memory">
+              <span class="comp-badge">Category</span>
+            </div>
+            <div class="comp-details">
+              <h3>RAM Memory</h3>
+              <p>DDR4 & DDR5 high speed memory modules</p>
+              <div class="comp-price-tag">Price: <span class="price-val" id="price-ram">0</span> EGP</div>
+              <button class="add-comp-btn" data-id="ram" data-name="RAM Memory"><i class="fa-solid fa-pen-to-square"></i> Set Price / Add</button>
+            </div>
+          </div>
+
+          <div class="component-card" data-comp-id="mb">
+            <div class="comp-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=500&auto=format&fit=crop&q=80" alt="Motherboard">
+              <span class="comp-badge">Main Board</span>
+            </div>
+            <div class="comp-details">
+              <h3>Motherboard</h3>
+              <p>ATX & Micro-ATX system motherboards</p>
+              <div class="comp-price-tag">Price: <span class="price-val" id="price-mb">0</span> EGP</div>
+              <button class="add-comp-btn" data-id="mb" data-name="Motherboard"><i class="fa-solid fa-pen-to-square"></i> Set Price / Add</button>
+            </div>
+          </div>
+
+          <div class="component-card" data-comp-id="keyboard">
+            <div class="comp-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500&auto=format&fit=crop&q=80" alt="Keyboard">
+              <span class="comp-badge">Observation</span>
+            </div>
+            <div class="comp-details">
+              <h3>Gaming Keyboard</h3>
+              <p>Mechanical & RGB custom keyboards</p>
+              <div class="comp-price-tag">Price: <span class="price-val" id="price-keyboard">0</span> EGP</div>
+              <button class="add-comp-btn" data-id="keyboard" data-name="Gaming Keyboard"><i class="fa-solid fa-pen-to-square"></i> Set Price / Add</button>
+            </div>
+          </div>
+
+          <div class="component-card" data-comp-id="mouse">
+            <div class="comp-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500&auto=format&fit=crop&q=80" alt="Mouse">
+              <span class="comp-badge">Observation</span>
+            </div>
+            <div class="comp-details">
+              <h3>Gaming Mouse</h3>
+              <p>Optical high DPI gaming mice</p>
+              <div class="comp-price-tag">Price: <span class="price-val" id="price-mouse">0</span> EGP</div>
+              <button class="add-comp-btn" data-id="mouse" data-name="Gaming Mouse"><i class="fa-solid fa-pen-to-square"></i> Set Price / Add</button>
+            </div>
+          </div>
+
+          <div class="component-card" data-comp-id="headphones">
+            <div class="comp-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=80" alt="Headphones">
+              <span class="comp-badge">Observation</span>
+            </div>
+            <div class="comp-details">
+              <h3>Headphones</h3>
+              <p>Surround sound wireless & wired headsets</p>
+              <div class="comp-price-tag">Price: <span class="price-val" id="price-headphones">0</span> EGP</div>
+              <button class="add-comp-btn" data-id="headphones" data-name="Headphones"><i class="fa-solid fa-pen-to-square"></i> Set Price / Add</button>
+            </div>
+          </div>
+
+          <div class="component-card" data-comp-id="printers">
+            <div class="comp-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1612815150366-a813625b4141?w=500&auto=format&fit=crop&q=80" alt="Printers">
+              <span class="comp-badge">Observation</span>
+            </div>
+            <div class="comp-details">
+              <h3>Printers</h3>
+              <p>LaserJet & InkJet office printers</p>
+              <div class="comp-price-tag">Price: <span class="price-val" id="price-printers">0</span> EGP</div>
+              <button class="add-comp-btn" data-id="printers" data-name="Printers"><i class="fa-solid fa-pen-to-square"></i> Set Price / Add</button>
+            </div>
+          </div>
+
+          <div class="component-card" data-comp-id="monitors">
+            <div class="comp-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500&auto=format&fit=crop&q=80" alt="Monitors">
+              <span class="comp-badge">Observation</span>
+            </div>
+            <div class="comp-details">
+              <h3>Monitors</h3>
+              <p>4K UltraHD & Curved gaming displays</p>
+              <div class="comp-price-tag">Price: <span class="price-val" id="price-monitors">0</span> EGP</div>
+              <button class="add-comp-btn" data-id="monitors" data-name="Monitors"><i class="fa-solid fa-pen-to-square"></i> Set Price / Add</button>
+            </div>
+          </div>
+
+          <div class="component-card" data-comp-id="pcbuilds">
+            <div class="comp-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1587202372634-32705e3bf49c?w=500&auto=format&fit=crop&q=80" alt="PC Builds">
+              <span class="comp-badge">Observation</span>
+            </div>
+            <div class="comp-details">
+              <h3>Custom PC Builds</h3>
+              <p>Full water-cooled custom desktop builds</p>
+              <div class="comp-price-tag">Price: <span class="price-val" id="price-pcbuilds">0</span> EGP</div>
+              <button class="add-comp-btn" data-id="pcbuilds" data-name="Custom PC Builds"><i class="fa-solid fa-pen-to-square"></i> Set Price / Add</button>
+            </div>
+          </div>
+
+          <div class="component-card" data-comp-id="nb">
+            <div class="comp-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=500&auto=format&fit=crop&q=80" alt="Northbridge">
+              <span class="comp-badge">Category</span>
+            </div>
+            <div class="comp-details">
+              <h3>Northbridge Chipset</h3>
+              <p>High speed memory controller hubs</p>
+              <div class="comp-price-tag">Price: <span class="price-val" id="price-nb">0</span> EGP</div>
+              <button class="add-comp-btn" data-id="nb" data-name="Northbridge Chipset"><i class="fa-solid fa-pen-to-square"></i> Set Price / Add</button>
+            </div>
+          </div>
+
+          <div class="component-card" data-comp-id="sb">
+            <div class="comp-img-wrapper">
+              <img src="https://images.unsplash.com/photo-1601758003122-53c40e686a19?w=500&auto=format&fit=crop&q=80" alt="Southbridge">
+              <span class="comp-badge">Category</span>
+            </div>
+            <div class="comp-details">
+              <h3>Southbridge Chipset</h3>
+              <p>I/O controller chipset components</p>
+              <div class="comp-price-tag">Price: <span class="price-val" id="price-sb">0</span> EGP</div>
+              <button class="add-comp-btn" data-id="sb" data-name="Southbridge Chipset"><i class="fa-solid fa-pen-to-square"></i> Set Price / Add</button>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- 3. SHORTAGES TAB (قسم النواقص) -->
+      <main class="main-content tab-content" id="tab-shortages">
+        <div class="achievements-header">
+          <h2><i class="fa-solid fa-triangle-exclamation text-orange"></i> Shortages Checklist & Inventory Check</h2>
+          <p>Check components to mark them as missing/needed or available in stock</p>
+        </div>
+
+        <div class="panel">
+          <div class="missing-grid" id="shortages-checklist-container">
+            <!-- Populated Dynamically via JavaScript -->
+          </div>
+        </div>
+      </main>
+
+      <!-- 4. SALES TAB (قسم المبيعات) -->
+      <main class="main-content tab-content" id="tab-sales">
+        <div class="achievements-header">
+          <h2><i class="fa-solid fa-chart-line text-orange"></i> Sales Tracker & Revenue Calculation</h2>
+          <p>Track quantities sold for each item and calculate overall revenue automatically</p>
+        </div>
+
+        <div class="sales-summary-cards">
+          <div class="sales-stat-card">
+            <span>Total Units Sold</span>
+            <h2 id="total-sales-units">0 Units</h2>
+          </div>
+          <div class="sales-stat-card" style="border-left-color: #10b981;">
+            <span>Total Calculated Revenue</span>
+            <h2 id="total-sales-revenue">0 EGP</h2>
+          </div>
+        </div>
+
+        <div class="panel" style="margin-top: 15px;">
+          <div class="panel-header">
+            <h3>Sales Entry per Item</h3>
+          </div>
+          <div class="sales-list-container" id="sales-items-container">
+            <!-- Populated Dynamically via JavaScript -->
+          </div>
+        </div>
+      </main>
+
+    </div>
+  </div>
+
+  <!-- MODALS SECTION -->
+
+  <!-- Data Input Modal -->
+  <div class="modal-overlay" id="input-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-sliders"></i> Dashboard Data Input</h3>
+        <button class="close-modal-btn" id="close-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-section">
+          <h4>Top Cards Prices (EGP)</h4>
+          <div class="input-grid">
+            <div class="input-group">
+              <label>CPU Price</label>
+              <input type="number" id="in-price-cpu" placeholder="0">
+            </div>
+            <div class="input-group">
+              <label>RAM Price</label>
+              <input type="number" id="in-price-ram" placeholder="0">
+            </div>
+            <div class="input-group">
+              <label>Motherboard Price</label>
+              <input type="number" id="in-price-mb" placeholder="0">
+            </div>
+            <div class="input-group">
+              <label>GPU Price</label>
+              <input type="number" id="in-price-gpu" placeholder="0">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h4>Categories Quantities</h4>
+          <div class="input-grid">
+            <div class="input-group">
+              <label>CPU Quantity (Max 100)</label>
+              <input type="number" id="in-cat-cpu" placeholder="0" max="100" min="0">
+            </div>
+            <div class="input-group">
+              <label>GPU Quantity (Max 100)</label>
+              <input type="number" id="in-cat-gpu" placeholder="0" max="100" min="0">
+            </div>
+            <div class="input-group">
+              <label>RAM Quantity (Max 400)</label>
+              <input type="number" id="in-cat-ram" placeholder="0" max="400" min="0">
+            </div>
+            <div class="input-group">
+              <label>Northbridge Quantity (Max 50)</label>
+              <input type="number" id="in-cat-nb" placeholder="0" max="50" min="0">
+            </div>
+            <div class="input-group">
+              <label>Southbridge Quantity (Max 50)</label>
+              <input type="number" id="in-cat-sb" placeholder="0" max="50" min="0">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h4>Observations Quantities</h4>
+          <div class="input-grid">
+            <div class="input-group">
+              <label>Keyboard Quantity (Max 300)</label>
+              <input type="number" id="in-obs-keyboard" placeholder="0" max="300" min="0">
+            </div>
+            <div class="input-group">
+              <label>Mouse Quantity (Max 750)</label>
+              <input type="number" id="in-obs-mouse" placeholder="0" max="750" min="0">
+            </div>
+            <div class="input-group">
+              <label>Headphones Quantity (Max 1000)</label>
+              <input type="number" id="in-obs-headphones" placeholder="0" max="1000" min="0">
+            </div>
+            <div class="input-group">
+              <label>Printers Quantity (Max 70)</label>
+              <input type="number" id="in-obs-printers" placeholder="0" max="70" min="0">
+            </div>
+            <div class="input-group">
+              <label>Monitors Quantity (Max 35)</label>
+              <input type="number" id="in-obs-monitors" placeholder="0" max="35" min="0">
+            </div>
+            <div class="input-group">
+              <label>PC Builds Quantity (Max 40)</label>
+              <input type="number" id="in-obs-pcbuilds" placeholder="0" max="40" min="0">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="save-btn" id="save-data-btn"><i class="fa-solid fa-check"></i> Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Component Modal -->
+  <div class="modal-overlay" id="add-component-modal">
+    <div class="modal-content" style="max-width: 450px;">
+      <div class="modal-header">
+        <h3 id="add-comp-modal-title"><i class="fa-solid fa-cart-plus"></i> Add Component</h3>
+        <button class="close-modal-btn" id="close-add-comp-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group">
+          <label>Quantity to Add</label>
+          <input type="number" id="add-comp-qty" placeholder="Enter quantity..." min="1">
+        </div>
+        <div class="input-group" style="margin-top: 10px;">
+          <label>Unit Price (EGP)</label>
+          <input type="number" id="add-comp-price" placeholder="Enter price per unit...">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="save-btn" id="confirm-add-comp-btn"><i class="fa-solid fa-plus"></i> Confirm Add</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

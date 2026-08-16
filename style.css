@@ -1,0 +1,603 @@
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: all 0.25s ease-in-out;
+}
+
+html, body {
+  width: 100%;
+  height: 100vh;
+  background-color: #a8a39d;
+}
+
+body {
+  display: flex;
+  padding: 15px;
+}
+
+.dashboard-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: #e5e7eb;
+  border-radius: 20px;
+  padding: 20px;
+  gap: 20px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+}
+
+/* =========================================================
+   SIDEBAR STYLING
+   ========================================================= */
+.sidebar {
+  width: 260px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.user-profile {
+  background-color: #0b253a;
+  color: white;
+  padding: 20px;
+  border-radius: 16px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.avatar img {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 8px;
+  border: 3px solid #f0a500;
+}
+
+.user-profile h3 { font-size: 16px; font-weight: 600; }
+.user-profile p { font-size: 11px; color: #94a3b8; margin-top: 2px; }
+
+.menu {
+  background-color: #0b253a;
+  border-radius: 16px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-item {
+  color: #94a3b8;
+  text-decoration: none;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.menu-item.active, .menu-item:hover {
+  background-color: #e5e7eb;
+  color: #0b253a;
+  font-weight: 600;
+  transform: translateX(4px);
+}
+
+.badge {
+  background-color: #ef4444;
+  color: white;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+/* Glowing Animated Button */
+.glowing-btn-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 120px;
+}
+
+.glowing-btn {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: #0b253a;
+  color: #ffffff;
+  border-radius: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 600;
+  z-index: 1;
+}
+
+.glowing-btn::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #0b253a;
+  border-radius: 16px;
+  z-index: 1;
+}
+
+.glowing-btn::after {
+  content: '';
+  position: absolute;
+  top: -5px; left: -5px; right: -5px; bottom: -5px;
+  border-radius: 21px;
+  background-image: conic-gradient(from var(--angle), #ff0055, #ffdd00, #00ff66, #00ffff, #ff0055);
+  z-index: -1;
+  animation: rotateGlow 3s linear infinite;
+}
+
+.btn-text {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@keyframes rotateGlow {
+  0% { --angle: 0deg; }
+  100% { --angle: 360deg; }
+}
+
+/* =========================================================
+   MAIN CONTENT & TABS
+   ========================================================= */
+.main-content-wrapper {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  overflow-y: auto;
+}
+
+.tab-content {
+  display: none;
+  height: 100%;
+  flex-direction: column;
+  gap: 15px;
+  overflow-y: auto;
+}
+
+.tab-content.active {
+  display: flex;
+}
+
+/* Dashboard Metric Cards */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.card {
+  padding: 18px;
+  border-radius: 16px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-dark-blue { background-color: #0b253a; }
+.card-orange { background-color: #f0a500; }
+.card-teal { background-color: #115e59; }
+.card-black { background-color: #0f172a; }
+
+.card-info span { font-size: 12px; opacity: 0.9; }
+.card-info h2 { font-size: 20px; margin: 6px 0; font-weight: 700; white-space: nowrap; }
+.card-info small { font-size: 10px; opacity: 0.7; }
+.card-icon { font-size: 24px; opacity: 0.85; }
+
+/* Panels & Grid Layout */
+.panel {
+  background-color: white;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.panel-header h3 { font-size: 15px; color: #0b253a; font-weight: 600; }
+
+.middle-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 15px;
+  flex: 1;
+}
+
+.obs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.obs-card {
+  background-color: #f8fafc;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.obs-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.obs-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0b253a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.obs-title i { color: #f0a500; }
+.obs-percent { font-size: 12px; font-weight: 700; color: #0b253a; }
+
+.progress-list { display: flex; flex-direction: column; gap: 12px; }
+.progress-item { display: flex; align-items: center; gap: 12px; }
+
+.icon-box {
+  width: 32px; height: 32px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 13px;
+}
+
+.dark-bg   { background-color: #0b253a; }
+.orange-bg { background-color: #f0a500; }
+.green-bg  { background-color: #10b981; }
+.blue-bg   { background-color: #0284c7; }
+.purple-bg { background-color: #8b5cf6; }
+
+.bar-container { flex: 1; }
+.bar-container .label { font-size: 12px; font-weight: 600; color: #334155; }
+.bar { height: 8px; background-color: #e2e8f0; border-radius: 4px; margin-top: 4px; overflow: hidden; }
+.fill { height: 100%; width: 0%; background-color: #0b253a; transition: width 0.8s ease-in-out; }
+.percent { font-size: 11px; font-weight: bold; color: #1e293b; }
+
+/* Stocks Chart & Social Media */
+.bottom-grid { display: grid; grid-template-columns: 2.2fr 1fr; gap: 15px; flex: 1; }
+.chart-wrapper { position: relative; height: 160px; width: 100%; }
+
+.social-panel { display: flex; flex-direction: column; gap: 10px; justify-content: center; }
+.social-item {
+  display: flex; align-items: center; gap: 12px; padding: 10px 14px;
+  border: 1px solid #e2e8f0; border-radius: 10px; font-size: 13px;
+  font-weight: 600; color: #0b253a; text-decoration: none;
+  cursor: pointer;
+}
+
+.social-item:hover { background-color: #0b253a; color: white; transform: translateX(6px); border-color: #0b253a; }
+
+.text-linkedin { color: #0a66c2; }
+.text-facebook { color: #1877f2; }
+.text-threads { color: #000000; }
+.text-instagram { color: #e4405f; }
+.social-item:hover i { color: #ffffff; }
+
+/* =========================================================
+   ACHIEVEMENTS PAGE STYLING
+   ========================================================= */
+.achievements-header {
+  background-color: white;
+  padding: 18px 24px;
+  border-radius: 18px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+}
+
+.achievements-header h2 { font-size: 18px; color: #0b253a; display: flex; align-items: center; gap: 10px; }
+.achievements-header p { font-size: 12px; color: #64748b; margin-top: 4px; }
+.text-orange { color: #f0a500; }
+
+.components-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  padding-bottom: 20px;
+}
+
+.component-card {
+  background-color: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+}
+
+.component-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+}
+
+.comp-img-wrapper {
+  position: relative;
+  width: 100%;
+  height: 130px;
+}
+
+.comp-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.comp-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(11, 37, 58, 0.85);
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  backdrop-filter: blur(2px);
+}
+
+.comp-details {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.comp-details h3 { font-size: 14px; color: #0b253a; font-weight: 700; }
+.comp-details p { font-size: 11px; color: #64748b; margin: 6px 0 10px 0; }
+
+.comp-price-tag {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0b253a;
+  background-color: #f1f5f9;
+  padding: 6px 10px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-left: 3px solid #f0a500;
+}
+
+.comp-price-tag .price-val {
+  color: #10b981;
+  font-size: 13px;
+}
+
+.add-comp-btn {
+  background-color: #0b253a;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.add-comp-btn:hover {
+  background-color: #f0a500;
+  color: #0b253a;
+}
+
+/* =========================================================
+   1. MISSING ITEMS SECTION (قسم النواقص)
+   ========================================================= */
+.missing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 15px;
+}
+
+.missing-item-card {
+  background-color: white;
+  padding: 16px;
+  border-radius: 14px;
+  border: 2px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+
+.missing-item-card.is-missing {
+  border-color: #ef4444;
+  background-color: #fef2f2;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-container input {
+  width: 18px;
+  height: 18px;
+  accent-color: #ef4444;
+  cursor: pointer;
+}
+
+.item-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0b253a;
+}
+
+.status-tag {
+  font-size: 11px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background-color: #f1f5f9;
+  color: #10b981;
+}
+
+.missing-item-card.is-missing .status-tag {
+  background-color: #ef4444;
+  color: white;
+}
+
+/* =========================================================
+   2. SALES TRACKER SECTION (قسم المبيعات)
+   ========================================================= */
+.sales-summary-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.sales-stat-card {
+  background-color: white;
+  padding: 18px;
+  border-radius: 14px;
+  border-left: 4px solid #f0a500;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+
+.sales-stat-card span { font-size: 12px; color: #64748b; }
+.sales-stat-card h2 { font-size: 22px; color: #0b253a; margin-top: 4px; }
+
+.sales-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sales-item-row {
+  background-color: white;
+  padding: 16px 20px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+
+.sales-item-info h4 { font-size: 14px; color: #0b253a; }
+.sales-unit-price { font-size: 12px; color: #64748b; }
+
+.sales-input-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sales-input-group label { font-size: 12px; color: #475569; }
+
+.sales-qty-input {
+  width: 90px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background-color: #f8fafc;
+  color: #0b253a;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.sales-total-box {
+  text-align: right;
+  min-width: 140px;
+}
+
+.sales-total-box span { font-size: 11px; color: #64748b; display: block; }
+.sales-total-box strong { font-size: 15px; color: #10b981; }
+
+/* =========================================================
+   MODAL DIALOG STYLING
+   ========================================================= */
+.modal-overlay {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background-color: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 999; opacity: 0; pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active { opacity: 1; pointer-events: all; }
+
+.modal-content {
+  background-color: #ffffff; width: 90%; max-width: 650px; max-height: 85vh;
+  border-radius: 20px; display: flex; flex-direction: column;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3); overflow: hidden;
+}
+
+.modal-header {
+  padding: 18px 24px; background-color: #0b253a; color: white;
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+.close-modal-btn { background: none; border: none; color: white; font-size: 24px; cursor: pointer; }
+.modal-body { padding: 20px 24px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
+
+.form-section h4 {
+  font-size: 12px; color: #f0a500; margin-bottom: 8px; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px;
+}
+
+.input-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.input-group { display: flex; flex-direction: column; gap: 4px; }
+.input-group label { font-size: 11px; font-weight: 600; color: #475569; }
+.input-group input { padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 12px; }
+
+.modal-footer { padding: 14px 24px; background-color: #f8fafc; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; }
+.save-btn { background-color: #0b253a; color: white; border: none; padding: 10px 20px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; }
+.save-btn:hover { background-color: #f0a500; color: #0b253a; }
+
+/* Responsive View */
+@media screen and (max-width: 900px) {
+  html, body { height: auto; overflow-y: auto; }
+  body { padding: 10px; }
+  .dashboard-container { flex-direction: column; height: auto; padding: 15px; }
+  .sidebar { width: 100%; height: auto; }
+  .menu { flex-direction: row; flex-wrap: wrap; justify-content: space-between; }
+  .cards-grid { grid-template-columns: repeat(2, 1fr); }
+  .middle-grid, .bottom-grid { grid-template-columns: 1fr; }
+  .input-grid { grid-template-columns: 1fr; }
+  .sales-item-row { flex-direction: column; align-items: flex-start; }
+  .sales-summary-cards { grid-template-columns: 1fr; }
+}
